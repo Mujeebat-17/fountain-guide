@@ -1,12 +1,11 @@
 import "./Sstyles.css";
 import Navbar from "../components/Navbar";
 
-function SignUp (){
+function SignIn (){
     return(
         <>
      <Navbar/>
      <div className="container"> 
-
           <div className="header">
             <div className="text">Sign In</div>
             <div className="underline"></div>
@@ -19,10 +18,10 @@ function SignUp (){
             </div>
             <div className="input">
               <i class="fa-solid fa-password"></i>
-              <input type="password" placeholder="Password"/>
+              <input type="password" placeholder="Password" />
             </div>
           </div>
-          <div className="forgot-password">Don't have an account?<a href="S"><span> Register!</span></a></div>
+          <div className="forgot-password">Don't have an account?<a href="register"><span> Register!</span></a></div>
           <div className="submit-container">
           <div className="submit">Sign In</div>
           </div>
@@ -30,4 +29,4 @@ function SignUp (){
       </>
     );
 }
-export default SignUp;
+export default SignIn;

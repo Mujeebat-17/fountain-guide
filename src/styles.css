@@ -49,3 +49,16 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+#instructions {
+  position:absolute;
+  margin-top: 150px;
+  display: none;
+  margin: 20px;
+  width: 25%;
+  top: 20;
+  bottom: 20%;
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: scroll;
+  font-family: sans-serif;
+}

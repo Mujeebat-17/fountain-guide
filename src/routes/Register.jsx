@@ -1,6 +1,8 @@
 import "./Sstyles.css";
 import Navbar from "../components/Navbar";
-function S (){
+import { useState } from "react";
+import {createUserWithEmailAndPassword }from "firebase/auth";
+function Register (){
     return(
         <>
          <Navbar/>
@@ -24,7 +26,7 @@ function S (){
               <input type="password" placeholder="Password"/>
             </div>
           </div>
-          <div className="forgot-password">Already have an account?<a href="SignUp"><span>Sign In!</span></a></div>
+          <div className="forgot-password">Already have an account?<a href="signin"><span>Sign In!</span></a></div>
           <div className="submit-container">
           <div className="submit">Register</div>
           </div>
@@ -32,4 +34,4 @@ function S (){
         </>
     );
 }
-export default S;
+export default Register;

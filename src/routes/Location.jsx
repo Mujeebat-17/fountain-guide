@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import TourSearch from "../components/Search";
-import geojson from "../markers"
+import geojson from "../markers";
 import Navbar from "../components/Navbar";
 
 mapboxgl.accessToken =
@@ -22,9 +22,8 @@ function Location() {
     const start = param.fromLocation.split(",");
     const end = param.toLocation.split(",");
 
-    console.log("HERE=>", start[0], end);
     const query = await fetch(
-      `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
+      `https://api.mapbox.com/directions/v5/mapbox/walking/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
       { method: "GET" }
     );
     const json = await query.json();
@@ -38,13 +37,12 @@ function Location() {
         coordinates: route,
       },
     };
-    
+
     if (map.current.getSource("route")) {
       map.current.getSource("route").setData(directions_geojson);
     }
     // otherwise, we'll make a new request
     else {
-      console.log("Got here")
       map.current.addLayer({
         id: "route",
         type: "line",
@@ -63,9 +61,19 @@ function Location() {
         },
       });
     }
+    // get the sidebar and add the instructions
+    const instructions = document.getElementById("instructions");
+    instructions.style.display = "block";
+    const steps = data.legs[0].steps;
 
+    let tripInstructions = "";
+    for (const step of steps) {
+      tripInstructions += `<li>${step.maneuver.instruction}</li>`;
+    }
+    instructions.innerHTML = `<p><strong>Trip duration: ${Math.floor(
+      data.duration / 60
+    )} min 🚶‍♂️ </strong></p><ol>${tripInstructions}</ol>`;
   }
-
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
@@ -93,15 +101,16 @@ function Location() {
         )
         .addTo(map.current);
     }
-
   }, []);
 
   return (
     <>
-    <Navbar/>
-    <div class="search">
-    <TourSearch sendDataToParent={getRoute} map={map.current} /> 
-    <div ref={mapContainer} className="map-container" /> </div>
+      <Navbar />
+      <div className="search">
+        <TourSearch sendDataToParent={getRoute} map={map.current} />
+        <div ref={mapContainer} className="map-container" />
+      </div>
+      <div id="instructions"></div>
     </>
   );
 }
