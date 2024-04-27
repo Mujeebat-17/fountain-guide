@@ -34,6 +34,7 @@ const geojson = {
         'description': 'Senate Building'
       }
     },
+    
     {
       'type': 'Feature',
       'geometry': {
@@ -45,7 +46,61 @@ const geojson = {
         'description': 'College of Natural and Applied Sciences Building'
       }
     },
-
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [4.545885236297748, 7.743648340151238]
+      },
+      'properties': {
+        'title': 'COMAS BUILDING',
+        'description': 'College of MASSCOMMUNICATION'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [4.5471922074487745, 7.744000555820815]
+      },
+      'properties': {
+        'title': 'MASSCOM STUDIO',
+        'description': 'MASSCOMMUNICATION STUDIO'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [4.547299018086318, 7.744145045657046]
+      },
+      'properties': {
+        'title': 'CAFTERIA GBADUN EMI E',
+        'description': 'CAFTERIA'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [4.547463685281218, 7.744453774904632]
+      },
+      'properties': {
+        'title': 'MAMA B',
+        'description': 'CAFTERIA'
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [ 4.546002447629705, 7.744382858089354]
+      },
+      'properties': {
+        'title': 'LABORATORY BUILDING',
+        'description': 'UNIVERSITY LAB'
+      }
+    },
     {
       'type': 'Feature',
       'geometry': {
@@ -53,10 +108,22 @@ const geojson = {
         'coordinates': [4.545300815974759, 7.744772738175461]
       },
       'properties': {
-        'title': 'CO ARTS BUILDING',
+        'title': 'COARTS BUILDING',
         'description': 'College of Art Building'
       }
   },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [4.5460689493735424, 7.744961723801921]
+      },
+      'properties': {
+        'title': 'COBMEBS BUILDING',
+        'description': 'College of Medical  Laboratory Science'
+      }
+  },
+
     {
       'type': 'Feature',
       'geometry': {
@@ -174,7 +241,7 @@ const geojson = {
       'type': 'Feature',
       'geometry': {
         'type': 'Point',
-        'coordinates': [4.544090093065046, 7.7447574267465304]
+        'coordinates': [4.544129610844576, 7.744246662890161]
       },
       'properties': {
         'title': 'University Mosque',
@@ -208,7 +275,7 @@ const geojson = {
       'type': 'Feature',
       'geometry': {
         'type': 'Point',
-        'coordinates': [4.543856943951359, 7.7438434370742995]
+        'coordinates': [ 4.544331299260044, 7.744073051777052]
       },
       'properties': {
         'title': 'Nasfat hostel',
@@ -246,7 +313,7 @@ const geojson = {
         'coordinates': [4.545925188537578, 7.74232932433462]
       },
       'properties': {
-        'title': 'fountain vollball court',
+        'title': 'fountain volleyball court',
         'description': 'court'
       }
     },
@@ -255,7 +322,7 @@ const geojson = {
       'type': 'Feature',
       'geometry': {
         'type': 'Point',
-        'coordinates': [4.545117992340183, 7.743795341408508]
+        'coordinates': [4.5447811500953135, 7.743584296798219]
       },
       'properties': {
         'title': 'Namadi Sambo hall',
