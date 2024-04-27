@@ -4,16 +4,23 @@ import Location from "./routes/Location";
 import {Route, Routes } from "react-router-dom";
 import SignIn from "./routes/SignIn";
 import Register from "./routes/Register";
- function App() {
+import PrivateRoutesLayout from "./components/PrivateRoutesLayout";
+
+function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Home/>}/> 
-        <Route path="/location" element={<Location/>}/>
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/signin" element={<SignIn/>}/>
-      
-      </Routes>
+    <Routes>
+      {/* public routes */}
+      <Route path="/register" element={<Register />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="*" element={<div> Page Not Found </div>} />
+
+      {/* private routes */}
+      <Route element={<PrivateRoutesLayout />}>
+        <Route path="/location" element={<Location />} />
+        <Route path="/" element={<Home />} />
+      </Route>
+    </Routes>
       
       {/* <footer className="footer">
                 <p className="text-footer">
