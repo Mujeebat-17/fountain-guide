@@ -13,7 +13,7 @@ function Location() {
   const map = useRef(null);
   const [lng, setLng] = useState(4.547032);
   const [lat, setLat] = useState(7.742966);
-  const [zoom, setZoom] = useState(16);
+  const [zoom, setZoom] = useState(15);
 
   async function getRoute(param) {
     // make a directions request using walking profile
@@ -55,7 +55,7 @@ function Location() {
           "line-cap": "round",
         },
         paint: {
-          "line-color": "#3887be",
+          "line-color": "red",
           "line-width": 5,
           "line-opacity": 0.75,
         },
