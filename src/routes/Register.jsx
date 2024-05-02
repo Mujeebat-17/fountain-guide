@@ -12,7 +12,7 @@ function Register() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/signin";
 
   const onSubmit = async (e) => {
     e.preventDefault();
