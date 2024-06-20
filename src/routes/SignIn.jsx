@@ -14,7 +14,7 @@ function SignIn() {
   const location = useLocation();
 
   // replace the login route in the stack
-  const from = location.state?.from?.pathname || "/dashboard";
+  const from = location.state?.from?.pathname || "/";
 
   const onLogin = (e) => {
     e.preventDefault();

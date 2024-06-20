@@ -4,9 +4,14 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import TourSearch from "../components/Search";
 import geojson from "../markers";
 import Navbar from "../components/Navbar";
+import { auth, db } from "../firebase";
+import { GeoPoint,Timestamp } from "firebase/firestore";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaWJyb296OTQiLCJhIjoiY2x0d3RmNTJhMDJzNTJsbHNiN2IzOHF0dSJ9.CI9Yh7Hgyz20mgorFtU36g";
+
+import { collection, addDoc } from "firebase/firestore";
+// Add a new document with a generated id.
 
 function Location() {
   const mapContainer = useRef(null);
@@ -21,9 +26,10 @@ function Location() {
     // only the end or destination will change
     const start = param.fromLocation.split(",");
     const end = param.toLocation.split(",");
+    let routeProfile = param.routeProfile;
 
     const query = await fetch(
-      `https://api.mapbox.com/directions/v5/mapbox/walking/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
+      `https://api.mapbox.com/directions/v5/mapbox/${routeProfile}/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
       { method: "GET" }
     );
     const json = await query.json();
@@ -38,6 +44,30 @@ function Location() {
       },
     };
 
+    // send data to firestore
+    const newLocationData = {
+      user_id: auth.currentUser.uid,
+      to_location: {
+        coordinates: new GeoPoint(start[0], start[1]),
+        name: param.toLocationName,
+      },
+      from_location: {
+        coordinates: new GeoPoint(end[0], end[1]),
+        name: param.fromLocationName,
+      },
+      createdAt: Timestamp.now(), // Timestamp of location recording
+      total_time_spent: 0, // Optional, can be updated later
+      status: "completed", // Or "cancelled"
+    };
+
+    try {
+      const docRef = await addDoc(collection(db, "location"), newLocationData);
+      console.log("Document written with ID: ", docRef.id);
+    } catch (error) {
+      console.error("Error writing document: ", error);
+    }
+
+    
     if (map.current.getSource("route")) {
       map.current.getSource("route").setData(directions_geojson);
     }

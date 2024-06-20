@@ -64,12 +64,12 @@
 }
 .table-container{
   width: 80%;
-  height: 300px;
+  /* height: 300px; */
   display: flex;
     margin:auto;
     margin-top:400px;
     flex-direction: column;
-    padding-bottom:30px;
+    /* padding-bottom:30px; */
     position:relative;
     transform: translate(0%, -45%);
     background:green ;
