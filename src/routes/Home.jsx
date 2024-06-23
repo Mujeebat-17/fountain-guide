@@ -4,7 +4,7 @@ function Home (){
     return(
         <>
               <Navbar />
-            <div class="tour">
+            <div className ="tour">
                 <marquee behavior="alternate" direction="right"> LET'S TOUR FOUNTAIN UNIVERSITY TOGETHER</marquee>
                
             </div>

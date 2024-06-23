@@ -12,7 +12,8 @@ const PrivateRoutesLayout = () => {
     else{
         cu = auth.currentUser
     }
-    return true //cu
+    // return true //cu
+    return cu
    };
 
   return currentUser() ? (

@@ -3,7 +3,8 @@ import "./Sstyles.css";
 import Navbar from "../components/Navbar";
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../firebase";
 import { useNavigate, useLocation } from "react-router-dom";
 
 function SignIn() {
@@ -23,12 +24,22 @@ function SignIn() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        localStorage.setItem("authUser", JSON.stringify(user))
+        const docRef = doc(db, "users", user.uid);
+
+        getDoc(docRef)
+          .then((docSnap) => {
+            if (docSnap.exists()) {
+              const userData = docSnap.data();
+              localStorage.setItem("authUser", JSON.stringify({ uid: user.uid, isAdmin: userData.is_admin }));
+            }
+          })
+          .catch((e) => {
+            console.error("Error fetching user role: ", e);
+          })
 
         navigate(from, { replace: true });
         setEmail("");
         setPassword("");
-        console.log("Success", user);
       })
       .catch((error) => {
         const errorCode = error.code;
