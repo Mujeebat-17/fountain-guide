@@ -11,7 +11,7 @@ class Navbar extends Component {
   render() {
     return (
       <nav className="NavbarItems">
-        <h1 className="navbar-logo">FOUNTAIN GUIDE</h1>
+        <h1 className="navbar-logo">VISITOR'S GUIDE</h1>
 
         <div className="menu-icons" onClick={this.handleClick}>
           <i
