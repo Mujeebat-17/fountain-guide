@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 2rem auto;
+    max-width: 500px;
+    margin-top:140px;
+  }
+  
+  h1 {
+    margin-bottom: 1rem;
+  }
+  
+  .feedback-input,
+  .rating {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  textarea {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    resize: none;
+    width: 100%;
+  }
+  
+  .rating label {
+    margin-bottom: 10px;
+  }
+  
+  .rating button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .rating button:hover {
+    background-color: #eee;
+  }
+  
+  button[type="submit"] {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #45A049;
+  }
+  

@@ -3,6 +3,7 @@ import Home from "./routes/Home";
 import Location from "./routes/Location";
 import { Route, Routes } from "react-router-dom";
 import SignIn from "./routes/SignIn";
+import FeedbackPage from "./routes/feedback"
 import Register from "./routes/Register";
 import Admin from "./routes/Admin";
 import PrivateRoutesLayout from "./components/PrivateRoutesLayout";
@@ -20,6 +21,7 @@ function App() {
 
         {/* private routes */}
         <Route element={<PrivateRoutesLayout />}>
+        <Route path="/feedback" element={<FeedbackPage />} />
           <Route path="/location" element={<Location />} />
           <Route path="/" element={<Home />} />
         </Route>

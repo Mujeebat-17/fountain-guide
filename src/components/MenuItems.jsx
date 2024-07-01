@@ -12,12 +12,11 @@ export const MenuItems = [
       cName: "nav-links",
       icon: "fa-solid fa-location-dot",
     },
-    {/*
-      title: "Admin",
-      url: "/admin",
+    {
+      title: "feedback",
+      url: "/feedback",
       cName: "nav-links",
-      icon: "fa-solid fa-admin-user",
-  */},
+  },
 
     
   ];
