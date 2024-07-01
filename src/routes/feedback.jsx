@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase";
 import Navbar from "../components/Navbar";
 import "./feed.style.css";
 
@@ -14,17 +16,27 @@ function FeedbackPage() {
     setRating(newRating);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    
- // Implement logic to submit feedback and rating (e.g., send to a server)
-   console.log(`Feedback: ${feedback}, Rating: ${rating}`);
 
-    // Clear the feedback form after submission
-    setFeedback("");
-    setRating(0);
+    // Create a new feedback object with feedback and rating
+    const newFeedback = {
+      feedback: feedback,
+      rating: rating,
+    };
+
+    try {
+      // Add the feedback object to your Firestore collection
+      const feedbackRef = await addDoc(collection(db, "feedback"), newFeedback);
+      console.log("Feedback submitted successfully:", feedbackRef.id);
+
+      // Clear the feedback form after submission
+      setFeedback("");
+      setRating(0);
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+    }
   };
-
   return (
     <>
     <Navbar />
@@ -42,25 +54,20 @@ function FeedbackPage() {
           />
         </div>
         <div className="rating">
-          <label>Rate your experience (1-5):</label>
-          <div>
-            <button type="button" onClick={() => handleRatingChange(1)}>
-              1
-            </button>
-            <button type="button" onClick={() => handleRatingChange(2)}>
-              2
-            </button>
-            <button type="button" onClick={() => handleRatingChange(3)}>
-              3
-            </button>
-            <button type="button" onClick={() => handleRatingChange(4)}>
-              4
-            </button>
-            <button type="button" onClick={() => handleRatingChange(5)}>
-              5
-            </button>
+            <label>Rate your experience (1-5):</label>
+            <div>
+              {[1, 2, 3, 4, 5].map((num) => (
+                <button
+                  key={num}
+                  type="button"
+                  onClick={() => handleRatingChange(num)}
+                  className={rating === num ? "active" : ""}
+                >
+                  {num}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
         <button type="submit">Submit Feedback</button>
       </form>
     </div>
