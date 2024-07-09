@@ -5,7 +5,9 @@ import TourSearch from "../components/Search";
 import geojson from "../markers";
 import Navbar from "../components/Navbar";
 import { auth, db } from "../firebase";
-import { GeoPoint,Timestamp } from "firebase/firestore";
+import { GeoPoint, Timestamp } from "firebase/firestore";
+import getLocation from "../geoLocation";
+
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaWJyb296OTQiLCJhIjoiY2x0d3RmNTJhMDJzNTJsbHNiN2IzOHF0dSJ9.CI9Yh7Hgyz20mgorFtU36g";
 
@@ -17,40 +19,18 @@ function Location() {
   const map = useRef(null);
   const [lng, setLng] = useState(4.547032);
   const [lat, setLat] = useState(7.742966);
-  const [zoom] = useState(15);
-  const [userLng, setUserLng] = useState(lng); // Initial user longitude
-  const [userLat, setUserLat] = useState(lat); // Initial user latitude
-
-  useEffect(() => {
-    const getUserLocation = async () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setUserLng(position.coords.longitude);
-            setUserLat(position.coords.latitude);
-            // Update map center with user location
-            map.current.setCenter([userLng, userLat]);
-          },
-          (error) => {
-            console.error("Error getting user location:", error);
-            // Handle location access error (optional)
-          }
-        );
-      } else {
-        console.warn("Geolocation is not supported by this browser.");
-      }
-    };
-
-    getUserLocation();
-  }, []);
-
+  const [zoom, setZoom] = useState(15);
+  const [activeRoute, setActiveRoute ] = useState(false)
 
   async function getRoute(param) {
     // make a directions request using walking profile
     // an arbitrary start will always be the same
     // only the end or destination will change
-    const start = param.fromLocation.split(",");
+    const start = param.fromLocation === "currentLocation"
+    ? await getLocation()
+    : param.fromLocation.split(",");
     const end = param.toLocation.split(",");
+    console.log("end", end)
     let routeProfile = param.routeProfile;
 
     const query = await fetch(
@@ -84,6 +64,7 @@ function Location() {
       total_time_spent: 0, // Optional, can be updated later
       status: "completed", // Or "cancelled"
     };
+    setActiveRoute(true);
 
     try {
       const docRef = await addDoc(collection(db, "location"), newLocationData);
@@ -92,7 +73,6 @@ function Location() {
       console.error("Error writing document: ", error);
     }
 
-    //update map with route or create a new route layer
     if (map.current.getSource("route")) {
       map.current.getSource("route").setData(directions_geojson);
     }
@@ -137,6 +117,18 @@ function Location() {
       center: [lng, lat],
       zoom: zoom,
     });
+    // Add geolocate control to the map.
+    map.current.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+        showUserHeading: true,
+      })
+    );
+
+    const currentMarkers= [];
 
     for (const feature of geojson.features) {
       // create a HTML element for each feature
@@ -144,16 +136,10 @@ function Location() {
       el.className = "marker";
 
       // make a marker for each feature and add it to the map
-     const marker = new mapboxgl.Marker(el);
-     if (feature.properties.title === "User Location") {
-      // Update user marker position dynamically
-      marker.setLngLat([userLng, userLat]);
-    } else {
-      // Set position for other markers from geojson data
-      marker.setLngLat(feature.geometry.coordinates);
-    }
-    
-      marker.setPopup(
+
+      const marker = new mapboxgl.Marker(el)
+        .setLngLat(feature.geometry.coordinates)
+        .setPopup(
           new mapboxgl.Popup({ offset: 25 }) // add popups
             .setHTML(
               `<h3>${feature.properties.title}</h3>
@@ -162,14 +148,18 @@ function Location() {
             )
         )
         .addTo(map.current);
+        currentMarkers.push(marker);
     }
-  }, []);
+    if (activeRoute){
+      currentMarkers.forEach(marker => marker.remove());
+    }
+  }, [activeRoute]);
 
   return (
     <>
       <Navbar />
       <div className="search">
-        <TourSearch sendDataToParent={getRoute} map={map.current} />
+        <TourSearch sendDataToParent={getRoute} />
         <div ref={mapContainer} className="map-container" />
       </div>
       <div id="instructions"></div>
@@ -178,5 +168,3 @@ function Location() {
 }
 
 export default Location;
-
-

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import geojson from "../markers";
 
-const TourSearch = ({ sendDataToParent, map }) => {
+const TourSearch = ({ sendDataToParent }) => {
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const [fromLocationName, setFromLocationName] = useState("");
@@ -46,6 +46,9 @@ const TourSearch = ({ sendDataToParent, map }) => {
         >
           <option value="" disabled>
             Select -from location
+          </option>
+          <option value="currentLocation"data-name="Live Location" >
+            Current Location
           </option>
           {getLocationOptions()}
         </select>
