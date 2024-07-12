@@ -14,8 +14,8 @@
     padding-bottom:30px;
     position:relative;
     transform: translate(0%, -50%);
-    width:400px;
-    height:400px;
+    width:300px;
+
     background:green ;
     border-radius: 20px;
     
@@ -26,7 +26,7 @@
     align-items: center;
     gap:9px;
     width:100%;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .text{
@@ -36,30 +36,30 @@ font-weight: 700;
 
 .underline{
     width:61px;
-    height:6px;
+    height:4px;
     background: black;
     border-radius: 9px;
 }
 
 .inputs{
-margin-top: 45px;
+margin-top: 35px;
 display: flex;
 flex-direction: column;
-gap:13px;
+gap:5px;
 }
 
 .input{
     align-items: center;
     margin:auto ;
     width:90%;
-    height:50px;
+    height:40px;
     background: #eaeaea;
     border-radius: 6px;
     display: flex;
 }
 
 .input input{
-    height:50px;
+    height:30px;
     width:400px;
     background:transparent;
     border:none;

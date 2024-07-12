@@ -1,14 +1,15 @@
-
 import "./Sstyles.css";
 import Navbar from "../components/Navbar";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
-function Register() {  
+function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [phoneNum, setPhoneNum] = useState("");
+  const [address, setAddress] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,16 +18,27 @@ function Register() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    await createUserWithEmailAndPassword(auth, email, password)
+    await createUserWithEmailAndPassword(auth, email, PhoneNumber)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        localStorage.setItem("authUser", JSON.parse(user))
+        updateProfile(user, {
+          phoneNumber: phoneNum,
+          address: address,
+        })
+          .then(() => {
+            localStorage.setItem("authUser", JSON.parse(user));
 
-        navigate(from, { replace: true });
-        setEmail("");
-        setPassword("");
-        console.log("Success", user);
+            navigate(from, { replace: true });
+            setEmail("");
+            setPassword("");
+            console.log("Success", user);
+          })
+          .catch((error) => {
+            // An error occurred
+            // ...
+          });
+
         // ...
       })
       .catch((error) => {
@@ -41,7 +53,6 @@ function Register() {
     <>
       <Navbar />
       <div className="container">
-
         <div className="header">
           <div className="text">Register</div>
           <div className="underline"></div>
@@ -50,8 +61,9 @@ function Register() {
         <div className="inputs">
           <div className="input">
             <i className="fa-solid fa-input"></i>
-            <input type="text" placeholder="Name" />
+            <input type="text" placeholder="FullName" />
           </div>
+
           <div className="input">
             <i className="fa-solid fa-email"></i>
             <input
@@ -70,6 +82,24 @@ function Register() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <div className="input">
+            <i className="fa-solid fa-password"></i>
+            <input
+              type="text"
+              placeholder="Phone Number"
+              value={phoneNum}
+              onChange={(e) => setPhoneNum(e.target.value)}
+            />
+          </div>
+          <div className="input">
+            <i className="fa-solid fa-password"></i>
+            <input
+              type="text"
+              placeholder="Address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </div>
         </div>
         <div className="forgot-password">
           Already have an account?
@@ -78,7 +108,9 @@ function Register() {
           </a>
         </div>
         <div className="submit-container">
-          <button type="submit" onClick={onSubmit} className="submit">Register</button>
+          <button type="submit" onClick={onSubmit} className="submit">
+            Register
+          </button>
         </div>
       </div>
     </>

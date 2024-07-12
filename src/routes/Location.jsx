@@ -128,7 +128,6 @@ function Location() {
       })
     );
 
-    const currentMarkers= [];
 
     for (const feature of geojson.features) {
       // create a HTML element for each feature
@@ -148,12 +147,9 @@ function Location() {
             )
         )
         .addTo(map.current);
-        currentMarkers.push(marker);
     }
-    if (activeRoute){
-      currentMarkers.forEach(marker => marker.remove());
-    }
-  }, [activeRoute]);
+
+  }, []);
 
   return (
     <>

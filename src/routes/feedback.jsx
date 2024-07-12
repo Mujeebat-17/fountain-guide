@@ -44,7 +44,7 @@ function FeedbackPage() {
       <h1>Leave Your Feedback</h1>
       <form onSubmit={handleSubmit}>
         <div className="feedback-input">
-          <label htmlFor="feedback">Share your thoughts:</label>
+          <label  class="label" htmlFor="feedback">Share your thoughts:</label>
           <textarea
             id="feedback"
             name="feedback"
@@ -68,7 +68,7 @@ function FeedbackPage() {
               ))}
             </div>
           </div>
-        <button type="submit">Submit Feedback</button>
+        <button type="submit1">Submit Feedback</button>
       </form>
     </div>
     </>

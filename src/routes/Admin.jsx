@@ -1,5 +1,5 @@
 import DataTable from "react-data-table-component";
-import Navbar from "../components/Navbar";
+//import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
@@ -54,7 +54,7 @@ function Admin() {
 
   return (
     <>
-      <Navbar />
+      
       <div className="table-container">
         <DataTable columns={columns} data={tableData} NotselectableRows></DataTable>
       </div>
