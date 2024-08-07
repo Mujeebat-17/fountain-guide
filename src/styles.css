@@ -16,6 +16,39 @@
   margin-top:140px;
   flex-direction: column;
 }
+.mainprofile{ 
+ justify-content: center;
+}
+
+.lets-go-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display:inline-block;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; /* Match width of other elements */
+  /* Adjust as needed for preferred button size */
+}
+
+@media screen and (max-width: 768px) {
+  .lets-go-button {
+    /* Adjust styles for smaller screens */
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+}
+@media screen and (max-width: 480px) {
+  .lets-go-button {
+    /* Adjust styles for very small screens */
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
 
 .tour{
   position:relative;

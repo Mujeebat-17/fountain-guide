@@ -33,8 +33,9 @@ const TourSearch = ({ sendDataToParent }) => {
 
   return (
     <>
+  
       {fromLocationName} <br /> {toLocationName}
-      <div>
+  <div className="mainprofile">
         <label htmlFor="from">From:</label>
         <select
           id="from"
@@ -67,6 +68,7 @@ const TourSearch = ({ sendDataToParent }) => {
           </option>
           {getLocationOptions()}
         </select>
+
         <label htmlFor="walkingProfile"> Walking </label>
         <input
           type="radio"
@@ -85,11 +87,11 @@ const TourSearch = ({ sendDataToParent }) => {
           checked={routeProfile === "driving"}
           onChange={(e) => setRouteProfile(e.target.value)}
         />
-
-        <button type="submit" onClick={handleClick}>
+        <button type="submit" onClick={handleClick} className="lets-go-button">
           Let's Go
         </button>
-      </div>
+        </div>
+     
     </>
   );
 };
