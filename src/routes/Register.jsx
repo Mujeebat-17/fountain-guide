@@ -2,7 +2,7 @@ import "./Sstyles.css";
 import Navbar from "../components/Navbar";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
 
 function Register() {
@@ -18,7 +18,7 @@ function Register() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    await createUserWithEmailAndPassword(auth, email, PhoneNumber)
+    await createUserWithEmailAndPassword(auth, email, phoneNum)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
@@ -36,7 +36,9 @@ function Register() {
           })
           .catch((error) => {
             // An error occurred
-            // ...
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage);
           });
 
         // ...
