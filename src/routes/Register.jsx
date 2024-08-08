@@ -1,6 +1,6 @@
 import "./Sstyles.css";
 import Navbar from "../components/Navbar";
-import { useNavigate, useLocation, updateProfile } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
