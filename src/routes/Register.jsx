@@ -18,7 +18,7 @@ function Register() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    await createUserWithEmailAndPassword(auth, email, phoneNum)
+    await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
@@ -27,18 +27,13 @@ function Register() {
           address: address,
         })
           .then(() => {
-            localStorage.setItem("authUser", JSON.parse(user));
-
+            console.log("Success", user);
             navigate(from, { replace: true });
             setEmail("");
             setPassword("");
-            console.log("Success", user);
           })
           .catch((error) => {
-            // An error occurred
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
+            console.log(error);
           });
 
         // ...
