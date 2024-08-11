@@ -6,6 +6,8 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
 
 function Register() {
+      const [error, setError] = useState('');
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
@@ -15,9 +17,16 @@ function Register() {
 
   const from = location.state?.from?.pathname || "/signin";
 
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
+
+        // Password validation
+        if (password.length < 8) {
+            setError('Password must be at least 8 characters long.');
+            return;
+        }
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -34,6 +43,7 @@ function Register() {
           })
           .catch((error) => {
             console.log(error);
+            setError(error.message);
           });
 
         // ...
@@ -42,6 +52,7 @@ function Register() {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        setError(errorMessage);
         // ..
       });
   };
@@ -50,6 +61,7 @@ function Register() {
     <>
       <Navbar />
       <div className="container">
+      {error && <p style={{ color: 'red', fontWeight: 'bold', padding: '10px' }}>{error}</p>}
         <div className="header">
           <div className="text">Register</div>
           <div className="underline"></div>

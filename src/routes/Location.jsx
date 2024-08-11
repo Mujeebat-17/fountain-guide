@@ -30,7 +30,6 @@ function Location() {
     ? await getLocation()
     : param.fromLocation.split(",");
     const end = param.toLocation.split(",");
-    console.log("end", end)
     let routeProfile = param.routeProfile;
 
     const query = await fetch(
